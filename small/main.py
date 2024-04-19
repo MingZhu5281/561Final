@@ -19,7 +19,7 @@ def combine_datasets(datasets):
 # Handling missing data
 def handle_missing_data(df):
     imputer = SimpleImputer(strategy='mean')
-    df[['DepDelay', 'DepDel15', 'Distance']] = imputer.fit_transform(df[['DepDelay', 'DepDel15', 'Distance']])
+    df[['DEP_DELAY', 'DEP_DEL15', 'DISTANCE']] = imputer.fit_transform(df[['DEP_DELAY', 'DEP_DEL15', 'DISTANCE']])
     df.dropna(inplace=True)  # Assuming dropping rows where ArrDel15 is NaN
     return df
 
@@ -30,10 +30,10 @@ def preprocess_and_train(train_df, test_df):
     test_df = handle_missing_data(test_df)
     
     # Features and target variable
-    X_train = train_df[['DayofMonth', 'DayOfWeek', 'OriginWac', 'DestWac', 'DepDelay', 'DepDel15', 'Distance']]
-    y_train = train_df['ArrDel15']
-    X_test = test_df[['DayofMonth', 'DayOfWeek', 'OriginWac', 'DestWac', 'DepDelay', 'DepDel15', 'Distance']]
-    y_test = test_df['ArrDel15']
+    X_train = train_df[['DAY_OF_MONTH', 'DAY_OF_WEEK', 'ORIGIN_WAC', 'DEST_WAC', 'DEP_DELAY', 'DEP_DEL15', 'DISTANCE']]
+    y_train = train_df['ARR_DEL15']
+    X_test = test_df[['DAY_OF_MONTH', 'DAY_OF_WEEK', 'ORIGIN_WAC', 'DEST_WAC', 'DEP_DELAY', 'DEP_DEL15', 'DISTANCE']]
+    y_test = test_df['ARR_DEL15']
     
     # Decision Tree Classifier
     clf = DecisionTreeClassifier()
