@@ -4,6 +4,9 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.impute import SimpleImputer
 
+from sklearn.ensemble import RandomForestClassifier
+
+
 # Load datasets
 def load_data():
     train_2020 = pd.read_csv('2020DecPA.csv')
@@ -36,7 +39,9 @@ def preprocess_and_train(train_df, test_df):
     y_test = test_df['ARR_DEL15']
     
     # Decision Tree Classifier
-    clf = DecisionTreeClassifier()
+    #clf = DecisionTreeClassifier()
+    # Random Forest Classifier
+    clf = RandomForestClassifier()
     clf.fit(X_train, y_train)
     
     # Predictions and evaluation
