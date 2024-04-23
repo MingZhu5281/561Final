@@ -6,6 +6,7 @@ from sklearn.impute import SimpleImputer
 
 from sklearn.ensemble import RandomForestClassifier
 
+from imblearn.ensemble import BalancedRandomForestClassifier  # Importing BalancedRandomForest
 
 # Load datasets
 def load_data():
@@ -42,7 +43,9 @@ def preprocess_and_train(train_df, test_df):
     # Decision Tree Classifier
     #clf = DecisionTreeClassifier()
     # Random Forest Classifier
-    clf = RandomForestClassifier()
+    #clf = RandomForestClassifier()
+    # Balanced Random Forest Classifier
+    clf = BalancedRandomForestClassifier(n_estimators=100, random_state=42)
     clf.fit(X_train, y_train)
     
     # Predictions and evaluation
