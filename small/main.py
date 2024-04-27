@@ -13,6 +13,8 @@ from imblearn.ensemble import BalancedRandomForestClassifier  # Importing Balanc
 
 from xgboost import XGBClassifier
 
+from sklearn.neighbors import KNeighborsClassifier
+
 # Load datasets
 def load_data():
     train_2018 = pd.read_csv('2018DecPA.csv')
@@ -40,47 +42,6 @@ def remove_outliers(df):
     df = df[df['DEP_DELAY'] <= 1500]
     return df
 
-'''
-# Preprocess and train model
-def preprocess_and_train(train_df, test_df):
-    # Handling missing data
-    train_df = handle_missing_data(train_df)
-    test_df = handle_missing_data(test_df)
-
-    # Remove outliers
-    train_df = remove_outliers(train_df)
-    test_df = remove_outliers(test_df)
-    
-    # Features and target variable
-    X_train = train_df[['DAY_OF_MONTH', 'DAY_OF_WEEK', 'ORIGIN_WAC', 'DEST_WAC', 'DEP_DELAY', 'DEP_DEL15', 'DISTANCE']]
-    y_train = train_df['ARR_DEL15']
-    X_test = test_df[['DAY_OF_MONTH', 'DAY_OF_WEEK', 'ORIGIN_WAC', 'DEST_WAC', 'DEP_DELAY', 'DEP_DEL15', 'DISTANCE']]
-    y_test = test_df['ARR_DEL15']
-    
-    # Decision Tree Classifier
-    #clf = DecisionTreeClassifier()
-    # Random Forest Classifier
-    #clf = RandomForestClassifier()
-    # Balanced Random Forest Classifier
-    #clf = BalancedRandomForestClassifier(n_estimators=100, random_state=42)
-    # XGBoost Classifier
-    clf = XGBClassifier(use_label_encoder=False, eval_metric='logloss')
-    clf.fit(X_train, y_train)
-    
-    # Predictions and evaluation
-    y_pred = clf.predict(X_test)
-    print(classification_report(y_test, y_pred))
-
-    # Generate and display the confusion matrix
-    cm = confusion_matrix(y_test, y_pred)
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm)
-    disp.plot(cmap=plt.cm.Blues)
-    plt.title('Confusion Matrix')
-
-    # Save the figure
-    plt.savefig('confusion_matrix.png')
-    plt.close()  # Close the figure to free up memory
-'''
 
 # Preprocess and train model
 def preprocess_and_train(train_df, test_df):
@@ -105,7 +66,9 @@ def preprocess_and_train(train_df, test_df):
     # Balanced Random Forest Classifier
     #clf = BalancedRandomForestClassifier(n_estimators=100, random_state=42)
     # XGBoost Classifier
-    clf = XGBClassifier(use_label_encoder=False, eval_metric='logloss')
+    #clf = XGBClassifier(use_label_encoder=False, eval_metric='logloss')
+    # KNN Classifier
+    clf = KNeighborsClassifier(n_neighbors=5)  # n_neighbors can be adjusted based on your dataset size and feature characteristics
     clf.fit(X_train, y_train)
     
     # Predict probabilities for ROC curve
