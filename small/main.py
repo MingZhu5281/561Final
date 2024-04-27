@@ -15,12 +15,13 @@ from xgboost import XGBClassifier
 
 # Load datasets
 def load_data():
+    train_2018 = pd.read_csv('2018DecPA.csv')
     train_2019 = pd.read_csv('2019DecPA.csv')
     train_2020 = pd.read_csv('2020DecPA.csv')
     train_2021 = pd.read_csv('2021DecPA.csv')
     train_2022 = pd.read_csv('2022DecPA.csv')
     test_2023 = pd.read_csv('2023DecPA.csv')
-    return train_2019, train_2020, train_2021, train_2022, test_2023
+    return train_2018, train_2019, train_2020, train_2021, train_2022, test_2023
 
 # Combine train datasets
 def combine_datasets(datasets):
@@ -139,8 +140,8 @@ def preprocess_and_train(train_df, test_df):
     
 # Main execution function
 def main():
-    train_2019, train_2020, train_2021, train_2022, test_2023 = load_data()
-    train_df = combine_datasets([train_2019, train_2020, train_2021, train_2022])
+    train_2018, train_2019, train_2020, train_2021, train_2022, test_2023 = load_data()
+    train_df = combine_datasets([train_2018, train_2019, train_2020, train_2021, train_2022])
     preprocess_and_train(train_df, test_2023)
 
 # Run main
